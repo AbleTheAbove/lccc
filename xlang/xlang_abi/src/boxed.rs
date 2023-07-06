@@ -430,14 +430,14 @@ mod test {
 
     #[test]
     fn test_box() {
-        let b = Box::new(5i32);
-        assert_eq!(Box::into_inner(b), 5i32);
+        let b = Box::new(5_i32);
+        assert_eq!(Box::into_inner(b), 5_i32);
     }
 
     #[test]
     fn test_deref() {
-        let b = Box::new(5i32);
+        let b = Box::new(5_i32);
 
-        assert_eq!(&*b, &5i32);
+        assert_eq!(&*b, &5_i32);
     }
 }

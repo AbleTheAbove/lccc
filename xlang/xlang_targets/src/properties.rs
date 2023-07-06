@@ -256,8 +256,10 @@ pub struct TargetProperties<'a> {
     pub abis: Span<'a, Pair<StringView<'a>, &'a TargetProperties<'a>>>,
 }
 
+mod ableos;
 mod clever;
 mod elf;
+mod holeybytes;
 mod linux;
 mod w65;
 mod x86;
@@ -289,6 +291,7 @@ pub fn __get_properties(targ: Target) -> Option<&'static TargetProperties<'stati
             w65-*-elf => Some(&elf::W65_ELF),
             w65-*-snes-elf => Some(&elf::W65_ELF),
             i86-*-near => Some(&elf::I86_NEAR_ELF),
+            holeybytes-*-ableos => Some(&ableos::HB_ABLEOS),
             * => None
         }
     }

@@ -65,7 +65,7 @@ pub unsafe extern "C" fn xlang_allocate(
     size: xlang_host::primitives::size_t,
 ) -> *mut core::ffi::c_void {
     if size == 0 {
-        return 32usize as *mut core::ffi::c_void;
+        return 32_usize as *mut core::ffi::c_void;
     }
     xlang_allocate_aligned(
         size,
