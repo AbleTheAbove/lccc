@@ -57,7 +57,9 @@ impl<T, A: Allocator> Drop for Vec<T, A> {
         if core::mem::needs_drop::<T>() {
             let ptr = self.ptr.as_ptr();
             for i in 0..self.len {
-                unsafe { core::ptr::drop_in_place(ptr.add(i)) }
+                unsafe {
+                    core::ptr::drop_in_place(ptr.add(i));
+                }
             }
         }
         let layout = unsafe {
@@ -271,7 +273,7 @@ impl<T, A: Allocator> Vec<T, A> {
     ///
     /// This will permanently leak the allocation and its elements.
     ///
-    /// This function is a convience over `SpanMut::new(self.leak())
+    /// This function is a convience over `SpanMut::new(self.leak())`
     pub fn leak_span<'a>(self) -> SpanMut<'a, T> {
         let this = ManuallyDrop::new(self);
         let ptr = this.ptr.as_ptr();
@@ -294,7 +296,9 @@ impl<T, A: Allocator> Vec<T, A> {
         if core::mem::needs_drop::<T>() {
             let ptr = self.ptr.as_ptr();
             for i in 0..len {
-                unsafe { core::ptr::drop_in_place(ptr.add(i)) }
+                unsafe {
+                    core::ptr::drop_in_place(ptr.add(i));
+                }
             }
         }
     }
@@ -339,7 +343,9 @@ impl<T, A: Allocator> Vec<T, A> {
         }
         let src = unsafe { self.ptr.as_ptr().add(n) };
         let dst = new.ptr.as_ptr();
-        unsafe { core::ptr::copy_nonoverlapping(src, dst, nlen) }
+        unsafe {
+            core::ptr::copy_nonoverlapping(src, dst, nlen);
+        }
         unsafe {
             new.set_len(nlen);
         }
@@ -364,7 +370,9 @@ impl<T, A: Allocator> Vec<T, A> {
         }
         let src = unsafe { self.ptr.as_ptr().add(nlen) };
         let dst = new.ptr.as_ptr();
-        unsafe { core::ptr::copy_nonoverlapping(src, dst, n) }
+        unsafe {
+            core::ptr::copy_nonoverlapping(src, dst, n);
+        }
         unsafe {
             new.set_len(n);
         }
@@ -388,7 +396,9 @@ impl<T, A: Allocator> Vec<T, A> {
         if core::mem::needs_drop::<T>() {
             let ptr = self.ptr.as_ptr();
             for i in new_len..old_len {
-                unsafe { core::ptr::drop_in_place(ptr.add(i)) }
+                unsafe {
+                    core::ptr::drop_in_place(ptr.add(i));
+                }
             }
         }
     }
@@ -456,7 +466,9 @@ impl<T: Clone, A: Allocator + Clone> Clone for Vec<T, A> {
         let ptr = nvec.ptr.as_ptr();
 
         if is_copy::<T>() {
-            unsafe { core::ptr::copy_nonoverlapping(self.ptr.as_ptr(), ptr, self.len) }
+            unsafe {
+                core::ptr::copy_nonoverlapping(self.ptr.as_ptr(), ptr, self.len);
+            }
         } else {
             for i in 0..self.len {
                 unsafe {
@@ -635,7 +647,9 @@ impl<T, A: Allocator> Drop for IntoIter<T, A> {
                 // self.ptr, self.len, and self.cap all come from `Vec`, so we know that `ptr` is exactly self.cap `T`s long
                 // and is valid up to `self.len`, which i is at most here
                 // Additionally, no !Copy value is duplicated, because we've advanced past any previously consumed values of `T`
-                unsafe { core::ptr::drop_in_place(self.ptr.as_ptr().add(i)) }
+                unsafe {
+                    core::ptr::drop_in_place(self.ptr.as_ptr().add(i));
+                }
             }
         }
         let raw_cap = self.cap * size_of::<T>();
@@ -646,7 +660,9 @@ impl<T, A: Allocator> Drop for IntoIter<T, A> {
             // SAFETY:
             // self.ptr and self.cap both come from `Vec`, so `ptr` is exactly self.capacity `T`s long,
             // and that it was allocated using an allocator compatible with `self.alloc`
-            unsafe { self.alloc.deallocate(self.ptr.as_nonnull().cast(), layout) };
+            unsafe {
+                self.alloc.deallocate(self.ptr.as_nonnull().cast(), layout);
+            };
         }
     }
 }
@@ -683,8 +699,8 @@ macro_rules! vec{
     };
     [$elem:expr ; $repeat:expr] => {
         {
-            let __repeat: ::core::primitive::usize = $repeat;
             fn __check<T: ::core::clone::Clone>(_: &T) {}
+            let __repeat: ::core::primitive::usize = $repeat;
             let val = $elem;
             __check(&val);
             let mut vec = $crate::vec::Vec::with_capacity(__repeat);

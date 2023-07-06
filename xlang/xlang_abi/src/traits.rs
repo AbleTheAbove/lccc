@@ -186,7 +186,9 @@ pub unsafe trait AbiSafeVTable<T: ?Sized>: Sized {
     unsafe fn drop_in_place(&self, ptr: *mut ()) {
         if let Some(f) = unsafe { (*(self as *const Self).cast::<AbiSafeVTableHead>()).destructor }
         {
-            unsafe { (f)(ptr) };
+            unsafe {
+                (f)(ptr);
+            };
         }
     }
 }

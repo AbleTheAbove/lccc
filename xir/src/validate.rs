@@ -1309,7 +1309,9 @@ pub fn tycheck(x: &mut File) {
     for Pair(_, member) in &mut x.root.members {
         match &mut member.member_decl {
             xlang_struct::MemberDeclaration::Function(
-                decl @ FunctionDeclaration {
+                decl
+                @
+                FunctionDeclaration {
                     body: XLangSome(_), ..
                 },
             ) => {

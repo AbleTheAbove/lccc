@@ -791,7 +791,9 @@ impl<F: FunctionRawCodegen> FunctionCodegen<F> {
             (
                 VStackValue::Constant(Value::Integer {
                     ty:
-                        ty1 @ ScalarType {
+                        ty1
+                        @
+                        ScalarType {
                             header:
                                 ScalarTypeHeader {
                                     vectorsize: None, ..
@@ -802,7 +804,9 @@ impl<F: FunctionRawCodegen> FunctionCodegen<F> {
                 }),
                 VStackValue::Constant(Value::Integer {
                     ty:
-                        ty2 @ ScalarType {
+                        ty2
+                        @
+                        ScalarType {
                             header:
                                 ScalarTypeHeader {
                                     vectorsize: None, ..
@@ -1044,7 +1048,9 @@ impl<F: FunctionRawCodegen> FunctionCodegen<F> {
             (
                 VStackValue::Constant(Value::Integer {
                     ty:
-                        ty1 @ ScalarType {
+                        ty1
+                        @
+                        ScalarType {
                             header:
                                 ScalarTypeHeader {
                                     vectorsize: None, ..
@@ -1055,7 +1061,9 @@ impl<F: FunctionRawCodegen> FunctionCodegen<F> {
                 }),
                 VStackValue::Constant(Value::Integer {
                     ty:
-                        ty2 @ ScalarType {
+                        ty2
+                        @
+                        ScalarType {
                             header:
                                 ScalarTypeHeader {
                                     vectorsize: None, ..
@@ -1304,7 +1312,9 @@ impl<F: FunctionRawCodegen> FunctionCodegen<F> {
             },
             (
                 VStackValue::OpaqueScalar(
-                    st @ ScalarType {
+                    st
+                    @
+                    ScalarType {
                         kind: ScalarTypeKind::Integer { .. },
                         ..
                     },
@@ -1486,7 +1496,9 @@ impl<F: FunctionRawCodegen> FunctionCodegen<F> {
             },
             VStackValue::Constant(Value::Integer {
                 ty:
-                    sty @ ScalarType {
+                    sty
+                    @
+                    ScalarType {
                         kind: ScalarTypeKind::Integer { signed: false, .. },
                         ..
                     },
@@ -1527,7 +1539,9 @@ impl<F: FunctionRawCodegen> FunctionCodegen<F> {
 
             VStackValue::Constant(Value::Integer {
                 ty:
-                    sty @ ScalarType {
+                    sty
+                    @
+                    ScalarType {
                         kind: ScalarTypeKind::Integer { signed: true, .. },
                         ..
                     },

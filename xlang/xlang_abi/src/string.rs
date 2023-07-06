@@ -135,7 +135,7 @@ impl<A: Allocator> String<A> {
 
     /// Pushes a character
     pub fn push(&mut self, c: char) {
-        self.push_str(c.encode_utf8(&mut [0u8; 4]));
+        self.push_str(c.encode_utf8(&mut [0_u8; 4]));
     }
 
     /// Converts a [`String`] into a [`crate::vec::Vec`] of UTF-8 bytes
@@ -512,14 +512,16 @@ mod test {
     }
 
     #[test]
+    // NOTE(Able): This Seems:TM: like more of a test of a macro that should go in core and not something that belongs in xlang
     pub fn test_eq() {
         let y = StringView::new("");
+        #[allow(clippy::eq_op)]
         assert_eq!(y, y);
     }
 
     #[test]
     pub fn test_display() {
         let x = StringView::new("Hello World");
-        assert_eq!(&*x, &*format!("{}", x))
+        assert_eq!(&*x, &*format!("{}", x));
     }
 }

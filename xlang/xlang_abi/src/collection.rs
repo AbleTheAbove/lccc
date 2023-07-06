@@ -1026,7 +1026,7 @@ mod test {
     fn test_hash_map_add_a_whole_hecking_lot_of_random_data() {
         let mut map = HashMap::<u8, u8>::new();
         let mut vals = Vec::<u8>::new();
-        for i in 0u8..=255 {
+        for i in 0_u8..=255 {
             let val = i.wrapping_mul(37);
             vals.push(val);
             map.insert(i, val);

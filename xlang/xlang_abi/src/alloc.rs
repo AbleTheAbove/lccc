@@ -1,15 +1,14 @@
 #![cfg_attr(any(miri, test), allow(unused_unsafe, missing_docs))]
 
+use crate::{
+    prelude::v1::{DynBox, DynMut, DynRef},
+    traits::{AbiSafeTrait, AbiSafeUnsize, AbiSafeVTable, DynPtrSafe},
+};
 pub use std::alloc::GlobalAlloc;
 use std::{
     convert::TryFrom,
     hash::{Hash, Hasher},
     ptr::NonNull,
-};
-
-use crate::{
-    prelude::v1::{DynBox, DynMut, DynRef},
-    traits::{AbiSafeTrait, AbiSafeUnsize, AbiSafeVTable, DynPtrSafe},
 };
 
 #[cfg(not(any(miri, test)))]
